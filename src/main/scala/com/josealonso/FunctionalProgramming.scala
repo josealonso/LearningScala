@@ -25,7 +25,19 @@ object FunctionalProgramming extends App {
   val stringConcatenator = new Function2[String, String, String] {
     override def apply(arg1: String, arg2: String): String = arg1 + arg2
   }
+
   stringConcatenator("Hello", " Scala")
 
   // Conclusion: ALL SCALA FUNCTIONS ARE INSTANCES OF THESE FUNCTION_X TYPES
+
+  // syntax sugars
+  val doubler: Int => Int = (x: Int) => 2 * x
+  doubler(5)   // 25
+  /*
+    equivalent to:
+
+  val doubler = new Function1[Int, Int] {
+    override def apply(x: Int): Int = 2 * x
+  }
+   */
 }
