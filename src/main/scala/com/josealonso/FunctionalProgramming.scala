@@ -40,4 +40,15 @@ object FunctionalProgramming extends App {
     override def apply(x: Int): Int = 2 * x
   }
    */
+
+  // higher-order functions: take functions as args and return functions as results
+  val aMappedList = List(1, 2, 3).map(x => x + 1)
+  val aFlatMapped = List(1, 2, 3).flatMap(x => List(x, 2 * x))
+  println(aFlatMapped)    //  [1, 2, 2, 4, 3, 6]
+  val aFilteredList = List(1, 2, 3, 4).filter(_ % 2 == 0)
+  println(aFilteredList)
+
+  // all combinations between the numbers 1, 2, 3 and the letters A, B, C
+  val combinedLists = List(1, 2, 3).flatMap(number => List("A", "B", "C").map(letter => s"$number-$letter"))
+  println(combinedLists)
 }
