@@ -49,6 +49,15 @@ object FunctionalProgramming extends App {
   println(aFilteredList)
 
   // all combinations between the numbers 1, 2, 3 and the letters A, B, C
-  val combinedLists = List(1, 2, 3).flatMap(number => List("A", "B", "C").map(letter => s"$number-$letter"))
-  println(combinedLists)
+  val pairs = List(1, 2, 3).flatMap(number => List("A", "B", "C").map(letter => s"$number-$letter"))
+  println(pairs)
+
+  // for comprehensions
+  val alternativePairs = for {
+    number <- List(1, 2, 3)
+    letter <- List("A", "B", "C")
+  } yield s"$number-$letter"
+  println(alternativePairs)
+  // equivalent to the map/flatMap chain above
+
 }
