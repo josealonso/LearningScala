@@ -1,6 +1,8 @@
 package com.josealonso
 
+import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
+import  scala.concurrent.ExecutionContext.Implicits.global
 
 object Advanced extends App {
 
@@ -38,4 +40,34 @@ object Advanced extends App {
   }
   // map, flatMap, filter
 
+  /**
+   * Evaluates something on another thread
+   * (asynchronous programming)
+   */
+  val aFuture = Future {
+    println("Loading...")
+    Thread.sleep(1200)
+    println("I have computed a value.")
+    65
+  }
+  // future is a "collection" which contains a value when it's evaluated
+  // future is composable with map, flatMap and filter
+
+  // The Future, Try and Option types are called monads
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
