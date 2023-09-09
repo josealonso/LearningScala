@@ -55,6 +55,21 @@ object Advanced extends App {
 
   // The Future, Try and Option types are called monads
 
+  /**
+   * Implicit basics
+   */
+  // 1.- Implicit arguments
+  def aMethodWithImplicitArgs(implicit arg: Int) = arg + 1
+  implicit val defaultValue = 45 // The compiler does "aMethodWithImplicitArgs(defaultValue)"
+  println("Default value: " + aMethodWithImplicitArgs)
+
+  // 2.- Implicit conversions
+  implicit class MyRichInteger(n: Int) {
+    def isEven() = n % 2 == 0
+  }
+
+  println(23.isEven())  // The compiler does "new MyRichInteger(23).isEven()
+  // use this carefully
 }
 
 
