@@ -1,6 +1,28 @@
 package com.josealonso
 
 object BasicConcepts extends App {
+
+  /*
+  In Scala assignment always results in the unit value.
+  And "operators" in Scala are just methods.
+  = is the only real operator of the language. But it is context dependant.
+  The language is a lot more consistent and simpler when you don't have mutability.
+  In Scala you can declare (without assigning anything) variables only in abstract classes and traits. So you have almost always definitions.
+
+  Almost everything is an expression and has a type. Even definitions.
+  var a has a type (String). The expression var a = "test" also has a type: Unit
+  Most expressions don't have the type Unit. Unit is a signal that the expression was only a side-effect
+  (eg. variable assignment). But most Scala code involves building up expressions of more interesting types.
+
+  */
+  val arr: Array[Int] = new Array[Int](4)
+  val aList = List(2, 3, 4)
+  val foo = 24
+  arr(0) = foo  // = is not the real = operator but rather sugar syntax for calling the updated method on the corresponding class.
+  // arr(0).updated     // Error
+  val modifiedList = aList.updated(0, foo)
+  println(s"Updated list element: $modifiedList")  // List(24, 3, 4)
+
   /*
    * EVALUATION
    */
