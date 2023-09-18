@@ -1,46 +1,40 @@
 package com.josealonso.scalaforbeginners.part2oop
 
-abstract class MyList {
-  def head: Int
-  def tail: MyList
+abstract class MyList[+T] {
+  def head: T
+  def tail: MyList[T]
   def isEmpty: Boolean
-  def add(element: Int): MyList
+  def add[B >: T](element: B): MyList[B]
 //  protected def printElements: String
   def printElements: String
   // polymorphic call
   override def toString: String = "[" + printElements + "]"
 }
 
-object Empty extends MyList {
-  override def head: Int = throw new NoSuchElementException
-  override def tail: MyList = throw new NoSuchElementException
+object Empty extends MyList[Nothing] {
+  override def head: Nothing = throw new NoSuchElementException
+  override def tail: Nothing = throw new NoSuchElementException
   override def isEmpty: Boolean = true
-  override def add(element: Int): MyList = new Cons(element, Empty)
+  def add[B >: Nothing](element: B): MyList[B] = new Cons(element, Empty)
   def printElements = ""
 }
 
-class Cons(h2: Int, t2: MyList) extends MyList {
-  override def head: Int = h2
-  override def tail: MyList = t2
+class Cons[+A](h2: A, t2: MyList[A]) extends MyList[A] {
+  override def head: A = h2
+  override def tail: MyList[A] = t2
   override def isEmpty: Boolean = false
-  override def add(element: Int): MyList = new Cons(element, this)
+  def add[B >: A](element: B): MyList[B] = new Cons(element, this)
   def printElements =
-//    var elementsList = new StringBuilder(this.head)
-//    while (this.tail != Empty) {
-//      elementsList.append(this.tail.head)
-//    }
-//    println(s"List: $elementsList")
     if (t2.isEmpty) "" + h2
     else h2 + " " + t2.printElements  // In Scala 3 a string interpolator must be used
 }
+// A, B are called type parameterss
 
 object ListTest extends App {
-  val list = new Cons(1, new Cons(2, new Cons(3, Empty)))
-  println(list.tail.head)
-  println(list.add(4).head)     // prints 4
-  println(list.isEmpty)
-  println(list.printElements)
-  println(list.toString)
+  val listOfIntegers: MyList[Int] = new Cons(1, new Cons(2, new Cons(3, Empty)))
+  val listOfStrings: MyList[String] = new Cons("hello", new Cons("Scala", new Cons("users", Empty)))
+  println(listOfIntegers.toString)
+  print(listOfStrings.toString)
 }
 
 
