@@ -1,7 +1,5 @@
 package com.josealonso.scalaforbeginners.part2oop
 
-import java.io.Writer
-
 object OOBasics extends App {
 
   val person = new Person("Alice", 35)
