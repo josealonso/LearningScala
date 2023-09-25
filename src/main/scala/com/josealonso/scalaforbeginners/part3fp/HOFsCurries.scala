@@ -9,6 +9,13 @@ object HOFsCurries extends App {
     else nTimes(f, n-1, f(x))
 
   val plusOne = (x: Int) => (x + 1)
+
+  /*
+    NOTE: we are losing the tail-recursion.
+    When we talk about currying and this "better" function, we are referring to this version as "better"
+    in terms of API design by "decoupling" the different parameters that go in this definition.
+    In practice we often see this pattern, which is often used with functions that are extremely unlikely of risking SOs.
+   */
   def nTimesBetter(f: Int => Int, n: Int): (Int => Int) =
     if (n <= 0) (x: Int) => x
     else (x: Int) => nTimesBetter(f, n-1) (f(x))
@@ -121,15 +128,26 @@ object HOFsCurries extends App {
 //  (x, y) => f(x, y)
     (x, y) => f(x) (y)
 
-  def compose(f: Int => Int, g: Int => Int): Int => Int =
+  def compose[A,B,T](f: A => B, g: T => A): T => B =
     x => f(g(x))
 
-  def andThen(f: Int => Int, g: Int => Int): Int => Int =
+  def andThen[A,B,C](f: A => B, g: B => C): A => C =
     x => g(f(x))
 
+  def superAdder2: (Int => Int => Int) = toCurry(_ + _)
+  def add4 = superAdder2(4)
+  println(add4(20))
 
+  val simpleAdder = fromCurry(superAdder2)
+  println(simpleAdder(4, 20))
 
+  val add2 = (x: Int) => x + 2
+  val times3 = (x: Int) => x * 3
+  val composed = compose(add2, times3)
+  val ordered = andThen(add2, times3)
 
+  println(composed(5))  // (5*3)+2 = 17
+  println(ordered(5))   // (5+2) * 3 = 21
 
 
 
