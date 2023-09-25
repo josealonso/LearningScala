@@ -21,7 +21,7 @@ object AnonymousFunctions extends App {
 
   // more syntactic sugar
   val adder2: (Int, Int) => Int = _ + _  // useful notation in HOF calls
-q
+
   val superAdd = (x: Int) => (y: Int) => x + y
   println(superAdd(3)(4))
 }
